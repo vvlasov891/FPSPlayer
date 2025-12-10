@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://dnmra7phv62qm"]
+
+[ext_resource type="Script" uid="uid://cpw02cjfr5ej1" path="res://player.gd" id="1_0bhed"]
+[ext_resource type="Script" uid="uid://cnqw1mra13t2i" path="res://ground.gd" id="2_m0rpm"]
+
+[sub_resource type="GDScript" id="GDScript_0xm2m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
+albedo_color = Color(0.7985073, 0.5640696, 0.7322672, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7mycd"]
+material = SubResource("StandardMaterial3D_1bvp3")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_272bh"]
+radius = 0.5678711
+height = 2.1855469
+
+[sub_resource type="BoxMesh" id="BoxMesh_0xm2m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h2yge"]
+
+[node name="Game" type="Node3D"]
+script = SubResource("GDScript_0xm2m")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1867037, 0)
+script = ExtResource("1_0bhed")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_7mycd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0234375, 0)
+shape = SubResource("CapsuleShape3D_272bh")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2733536, -0.9846268)
+current = true
+
+[node name="Ground" type="StaticBody3D" parent="."]
+script = ExtResource("2_m0rpm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(18.81, 0, 0, 0, 1.56, 0, 0, 0, 20, 0, -0.124839544, 0)
+mesh = SubResource("BoxMesh_0xm2m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(20, 0, 0, 0, 2, 0, 0, 0, 20, 0, 0, 0)
+shape = SubResource("BoxShape3D_h2yge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.7071068, -0.5, 0.5, 0, 0.7071068, 0.7071068, -0.7071068, -0.5, 0.5, 0, 10.0223675, 0)
+light_energy = 1.5
